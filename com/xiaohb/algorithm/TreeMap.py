@@ -84,4 +84,25 @@ def RBInsertFixup(T,z):
                 z.parent.parent.color = 'red'
                 RightRotate(T,z.parent.parent)
         else:
-            
+            y = z.parent.parent.left
+            if y.color == 'red':
+                z.parent.color = 'black'
+                y.color = 'black'
+                z.parent.parent.color = 'red'
+                z = z.parent.parent
+            else:
+                if z == z.parent.left:
+                    z = z.parent
+                    RightRotate(T,z)
+                z.parent.color='black'
+                z.parent.parent.color = 'red'
+                LeftRotate(T, z.parent.parent)
+    T.root.color = 'black'
+def RBTransplant(T,u,v):
+    if u.parent == T.nil:
+        T.root = v;
+    elif u == u.parent.left:
+        u.parent.left = v
+    else:
+        u.parent.right = v
+    v.parent = u.parent
